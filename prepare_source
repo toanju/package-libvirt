@@ -2,13 +2,13 @@
 
 # release tag from https://github.com/cyberus-technology/libvirt/releases/tag/gardenlinux-release-26-06-19
 LIBVIRT_VERSION_TAG="gardenlinux-release-26-06-29"
-version_increment="3"
+version_increment="0"
 
 git_src_commit "$LIBVIRT_VERSION_TAG" https://github.com/cyberus-technology/libvirt.git
 
 # debian specific things
 crd=$(mktemp -d)
-git clone --branch debian/12.2.0-1 --single-branch https://salsa.debian.org/libvirt-team/libvirt.git "$crd"
+git clone --branch debian/12.7.0-1 --single-branch https://salsa.debian.org/libvirt-team/libvirt.git "$crd"
 pushd "$crd"
 git branch
 cp -r debian "$dir/src/"
@@ -20,6 +20,6 @@ sed "s/SED_MARKER_FOR_COMMIT_SHA/$LIBVIRT_VERSION_TAG/" <upstream_patches/meson.
 apply_patches
 import_upstream_patches
 
-version="12.2.0-1" # current debian base (do not change for rebuilds)
+version="12.7.0-1" # current debian base (do not change for rebuilds)
 version_suffix="gl${version_increment}"
 message="Update to $version $version_suffix"
